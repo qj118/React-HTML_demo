@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id='app'></div>
+        <script src="bower_components/react/react.development.js"></script>
+        <script src="bower_components/react/react-dom.development.js"></script>
+        <script src="bower_components/babel/browser.js"></script>
+        <script type="text/babel">
+            class MessageBox extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        isVisible: true,
+                        titleMessage: 'from state',
+                    }
+                }
+                render(){
+                    let styleObj = {
+                        display: this.state.isVisible ? 'block' : 'none',
+                    }
+                    return (
+                        <div>
+                            <h2 style={ styleObj }>{ this.state.titleMessage }</h2>
+                        </div>
+                        );
+                }
+            }
+
+            class ClickApp extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        clickCount: 0,
+                    };
+                    [
+                        'handleClick',
+                    ].forEach(method => {
+                        this[method] = this[method].bind(this);
+                    }); // 绑定 this 指针，让后续方法拥有相同的 this 指针。
+                }
+
+                handleClick(){
+                    this.setState({
+                        clickCount: this.state.clickCount + 1,
+                    });
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h2>点击下面按钮</h2>
+                            <button onClick={ this.handleClick }>点击我</button>
+                            <p>你一共点击了{ this.state.clickCount }</p>
+                        </div>
+                    );
+                }
+            }
+
+            var box = ReactDOM.render(<ClickApp />, document.getElementById('app'));
+            console.log(box);
+        </script>
+    </body>
+</html>

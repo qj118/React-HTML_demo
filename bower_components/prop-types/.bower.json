@@ -1,0 +1,29 @@
+{
+  "name": "prop-types",
+  "description": "Runtime type checking for React props and similar objects.",
+  "main": "prop-types.js",
+  "license": "MIT",
+  "keywords": [
+    "react"
+  ],
+  "homepage": "https://github.com/djbuen/proptypes",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "version": "0.0.1",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "625a116fa03bae6208c69a6bc8954e4b42a70427"
+  },
+  "_source": "https://github.com/djbuen/proptypes.git",
+  "_target": "^0.0.1",
+  "_originalSource": "proptypes",
+  "_direct": true
+}

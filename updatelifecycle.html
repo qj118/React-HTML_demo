@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id='app'></div>
+        <script src="bower_components/react/react.development.js"></script>
+        <script src="bower_components/react/react-dom.development.js"></script>
+        <script src="bower_components/babel/browser.js"></script>
+        <script src="bower_components/prop-types/prop-types.js"></script>
+        <script type="text/babel">
+            /*
+             * componentWillUpdate --> render --> componentDidUpdate
+            */
+            class MessageBox extends React.Component{
+                constructor(props){
+                    super(props);
+                    console.log('constructor');
+                    this.state = {
+                        count: 0,
+                    };
+                    [
+                        'killMyself',
+                        'doUpdate',
+                    ].forEach( method => {
+                        this[method] = this[method].bind(this);
+                    });
+                }
+
+                killMyself(){
+                    ReactDOM.unmountComponentAtNode( document.getElementById('app') );
+                }
+
+                componentWillUpdate(nextProp, nextState){
+                    console.log('componentWillUpdate');
+                }
+
+                componentDidUpdate(){
+                    console.log('componentDidUpdate');
+                }
+
+                doUpdate(){
+                    this.setState({
+                        count: this.state.count + 1,
+                    });
+                }
+
+                render(){
+                    console.log('render ...');
+                    return (
+                        <div>
+                            <h1> 计数：{this.state.count} </h1>
+                            <button onClick={ this.killMyself }> 卸载掉这个组件 </button><br />
+                            <button onClick={ this.doUpdate } > 手动更新组件 </button>
+                            <SubMessage count={ this.state.count }/>
+                        </div>
+                    );
+                }
+
+            }
+
+            class SubMessage extends React.Component{
+                // componentWillReceiveProps --> shouldComponentUpdate --> 返回 true 则更新，false 则停止更新
+                componentWillReceiveProps(){
+                    console.log('Sub: 准备接受 props 。。。');
+                }
+                shouldComponentUpdate(nextProp, nextState){
+                    if(nextProp.count > 5) 
+                    {
+                        console.log("不在更新！")
+                        return false;
+                    }
+                    return true;
+                }
+                render(){
+                    return (
+                        <h3>当前计数：{this.props.count} </h3>
+                    );
+                }
+            }
+
+            ReactDOM.render( <MessageBox />, document.getElementById("app"));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id='app'></div>
+        <script src="bower_components/react/react.development.js"></script>
+        <script src="bower_components/react/react-dom.development.js"></script>
+        <script src="bower_components/babel/browser.js"></script>
+        <script src="bower_components/prop-types/prop-types.js"></script>
+        <script type="text/babel">
+            class MessageBox extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        isVisible: true,
+                        messages: ['我刚学习前端的', 
+                            '感觉还不错',
+                            '比后台麻烦好多啊'],
+                    }
+                }
+                render(){
+                    const title = this.props.title;
+                    return(
+                        <div>
+                            <h1> { title } </h1>
+                            <Submessage  />
+                        </div>
+                    );
+                }
+            }
+
+            class Submessage extends React.Component{
+
+                render(){
+                    let msgs = [];
+                    this.props.messages.forEach((msg, index) => {
+                        msgs.push(
+                            <p key={ index }>{ msg }</p>
+                        );
+                    });
+                    return (
+                        <div>
+                            <h3>写代码很有意思</h3>
+                            <div>{ msgs }</div>
+                            <Footer />
+                        </div>
+                        );
+                }
+            }
+
+            // 为类 Submessage 添加静态属性，props的默认值
+            Submessage.defaultProps = {
+                messages: ['这是一个默认消息',],
+            }
+
+            // 为 props 限制类型, 需要用 bower 安装 proptypes 包，并导入
+            Submessage.propTypes = {
+                messages: PropTypes.array.isRequired,
+            }
+
+            class Footer extends React.Component {
+                render(){
+                    return (<small>Demon</small>);
+                }
+            }
+
+            ReactDOM.render( <MessageBox title="From Props"/>, document.getElementById("app"));
+        </script>
+    </body>
+</html>

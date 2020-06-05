@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id='app'></div>
+        <script src="bower_components/react/react.development.js"></script>
+        <script src="bower_components/react/react-dom.development.js"></script>
+        <script src="bower_components/babel/browser.js"></script>
+        <script src="bower_components/prop-types/prop-types.js"></script>
+        <script type="text/babel">
+            class FormApp extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        inputValue: 'input value',
+                        selectValue: 'A',
+                    };
+                    [
+                        'handleSubmit',
+                        'handleInput',
+                        'handleSelect',
+                    ].forEach(method => {
+                        this[method] = this[method].bind(this);
+                    });
+                }
+
+                handleSubmit(e){
+                    e.preventDefault();
+                    console.log('form submitting ...');
+                }
+
+                // 当表单项指定了 value 值，则在前端无法修改，必须定义 onChange 才能实现修改
+                handleInput(e){
+                    this.setState({
+                        inputValue: e.target.value,
+                    });
+                }
+
+                handleSelect(e){
+                    this.setState({
+                        selectValue: e.target.value,
+                    });
+                }
+
+                render(){
+                    return (
+                        <form onSubmit={ this.handleSubmit }>
+                            <input type="text" value={ this.state.inputValue } onChange={ this.handleInput }/>
+                            <br />
+                            <select value={ this.state.selectValue } onChange={ this.handleSelect }>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                            </select>
+                            <br />
+                            <p>Radio Button</p>
+                            <input name="goodRadio" type="radio" value="A"/>
+                            <input name="goodRadio" type="radio" value="B"/>
+                            <input name="goodRadio" type="radio" defaultChecked value="C"/>
+                            <br/>
+                            <p>Check Box</p>
+                            <input name="goodCheck" type="checkbox" value="A" />
+                            <input name="goodCheck" type="checkbox" value="B" />
+                            <input name="goodCheck" type="checkbox" defaultChecked value="C" />
+                            <br/>
+                            <textarea defaultValue="some text here again..."></textarea>
+                            <br/>
+                            <input type="submit" value="submit"/>
+                        </form>
+                    );
+                }
+            }
+
+            ReactDOM.render( <FormApp />, document.getElementById("app"));
+        </script>
+    </body>
+</html>

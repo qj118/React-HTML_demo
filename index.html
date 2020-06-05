@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id='app'></div>
+        <script src="bower_components/react/react.development.js"></script>
+        <script src="bower_components/react/react-dom.development.js"></script>
+        <script src="bower_components/babel/browser.js"></script>
+        <script type="text/babel">
+            class MessageBox extends React.Component{
+                render(){
+                    var subMessages = [];
+                    for(let i = 0; i < 7; i++){
+                        subMessages.push(<Submessage key={i}/>);
+                    }
+                    return (
+                        <div>
+                            <h1>Hello React</h1>
+                            { subMessages }
+                        </div>
+                        );
+                }
+            }
+
+            class Submessage extends React.Component{
+                render(){
+                    return (
+                        <div>
+                            <h3>写代码很有意思</h3>
+                            <Footer />
+                        </div>
+                        );
+                }
+            }
+
+            class Footer extends React.Component {
+                render(){
+                    return (<small>Demon</small>);
+                }
+            }
+
+            ReactDOM.render( <MessageBox />, document.getElementById("app"));
+        </script>
+    </body>
+</html>
